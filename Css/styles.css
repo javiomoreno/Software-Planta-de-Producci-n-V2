@@ -1,0 +1,45 @@
+/*Estilos de Las Tamblas*/
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover {
+	background-color: #f5f5f5
+}
+
+.ui-grid-header-cell-row {
+	background-color: #307ecc;
+	color: #FFF;
+	font-size: 14px;
+	padding-left: 12px;
+	margin-bottom: 1px;
+}
+
+.ui-grid-header-cell{
+	border-right: none;
+}
+
+.ui-grid-cell{
+	border-right: none;
+	border-bottom: 1px solid #9E9B9B !important;
+}
+
+
+.navbar{
+	padding-bottom: 6px;
+	background-color: rgba(254,254,254,1);
+	border-bottom: 1px solid rgba(0,175,234,1);
+}
+
+.titulo-logo{
+	padding-left: 10px;
+	text-align: left;
+	color: rgba(0,169,186,1);
+}
+
+.page-header{
+	padding-left: 20px;
+}
