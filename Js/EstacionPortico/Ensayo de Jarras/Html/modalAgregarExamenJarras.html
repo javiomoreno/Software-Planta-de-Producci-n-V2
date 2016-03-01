@@ -1,0 +1,93 @@
+<form name="form">
+	<div class="modal-header">
+	  <h3 class="modal-title">Agregar Examen Ensayo de Jarras</h3>
+	</div>
+	<div class="modal-body">
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-lg-6 blue">
+				<label for="fecha">Fecha</label>
+				<p class="input-group">
+				  <input type="text"  uib-datepicker-popup="dd/MM/yyyy"
+				  ng-model="registro.fechaRegistro" is-open="status.opened" min-date="minDate"
+				  max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" id="fecha" />
+				  <span class="input-group-btn">
+					<button type="button" class="btn btn-sm btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+				  </span>
+				</p>
+			</div>
+			<div class="form-group col-sm-12 col-lg-6 blue">
+				<label for="vasoNumero">Número de Vaso</label>
+				<select class="form-control" name="vasoNumero" id="vasoNumero" ng-model="registro.vasoNumero" required ng-options="opcion.id as opcion.vasoNumero for opcion in vasos">
+					<option value="">Seleccione número de Vaso</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-4 col-lg-4 blue">
+				<label for="planta">Planta</label>
+				<select class="form-control" name="planta" id="planta" ng-model="registro.planta" ng-options="opcion.id as opcion.planta for opcion in plantas">
+					<option value="">Seleccione Planta</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-12 col-sm-4 col-lg-4 blue">
+				<label for="color">Color (UPC)</label>
+				<input type="text" class="form-control"  placeholder="Color (UPC)"
+					   id="color" ng-model="registro.color" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-4 col-lg-4 blue">
+				<label for="turbiedad">Turbiedad (UNT)</label>
+				<input type="text" class="form-control"  placeholder="Turbiedad (UNT)"
+					   id="turbiedad" ng-model="registro.turbiedad" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-5 col-lg-5 blue">
+				<label for="cuagulante">Cuagulante</label>
+				<input type="text" class="form-control"  placeholder="Cuagulante"
+					   id="cuagulante" ng-model="registro.cuagulante" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-7 col-lg-7 blue">
+				<label for="sustancia">Sustancia</label>
+				<select class="form-control" name="sustancia" id="sustancia" ng-model="registro.sustancia" ng-options="opcion.id as opcion.sustancia for opcion in sustancias">
+					<option value="">Seleccione Sustancia</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="ayudanteCuagulante">Ayudante de Cuagulación</label>
+				<input type="text" class="form-control"  placeholder="Ayudante de Cuagulación"
+					   id="ayudanteCuagulante" ng-model="registro.ayudanteCuagulante" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-5 col-lg-5 blue">
+				<label for="tiempoFormacion">Tiempo de Formación</label>
+				<input type="text" class="form-control"  placeholder="Tiempo de Formación"
+					   id="tiempoFormacion" ng-model="registro.tiempoFormacion" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-5 col-lg-5 blue">
+				<label for="indiceWilcomb">Indice de Wilcomb</label>
+				<input type="text" class="form-control"  placeholder="Indice de Wilcomb"
+					   id="indiceWilcomb" ng-model="registro.indiceWilcomb" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-5 col-lg-5 blue">
+				<label for="tiempoSedimentacion">Tiempo de Sedimentación</label>
+				<input type="text" class="form-control"  placeholder="Tiempo de Sedimentación"
+					   id="tiempoSedimentacion" ng-model="registro.tiempoSedimentacion" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-7 col-lg-7 blue">
+				<label for="dosis">dosis</label>
+				<select class="form-control" name="dosis" id="dosis" ng-model="registro.dosis" ng-options="opcion.id as opcion.dosis for opcion in dosiss">
+					<option value="">Seleccione Dosis</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+	  <button class="btn btn-sm btn-success" ng-click="Agregar()">Agregar</button>
+	  <button class="btn btn-sm btn-danger" ng-click="$close()">Cerrar</button>
+	</div>
+</form>

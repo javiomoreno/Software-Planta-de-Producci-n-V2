@@ -8,8 +8,13 @@ pprModController.controller('EnsayoJarrasIndexController', [
     	var datos = [];
     	$scope.gridOptions = {};
     	var myDate = new Date();
-    	$scope.hoy =  myDate.getDate() + "/" + (myDate.getMonth() + 1) + "/" + myDate.getFullYear();
+    	var dias = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+    	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     	$scope.datos = [];
+    	$scope.fecha = dias[new Date(myDate).getDay()];
+    	$scope.fecha = $scope.fecha +" "+ new Date(myDate).getDate();
+        $scope.fecha = $scope.fecha +", "+ meses[new Date(myDate).getMonth()];
+        $scope.fecha = $scope.fecha+" de "+new Date(myDate).getFullYear();
 
     	$rootScope.registro = {};
 
