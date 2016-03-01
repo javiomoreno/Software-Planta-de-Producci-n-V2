@@ -11,11 +11,15 @@ tr:hover {
 }
 
 .ui-grid-header-cell-row {
-	background-color: #307ecc;
-	color: #FFF;
-	font-size: 14px;
+	background-color: #dddddd;
+	color: #707070;;
+	font-size: 12px;
 	padding-left: 12px;
 	margin-bottom: 1px;
+	border-color: #dddddd;
+    font-weight: bold;
+    line-height: 1.42857143;
+    vertical-align: middle;
 }
 
 .ui-grid-header-cell{
@@ -27,6 +31,17 @@ tr:hover {
 	border-bottom: 1px solid #9E9B9B !important;
 }
 
+.ui-grid-cell-contents{
+	text-align: center;
+}
+
+.ui-grid-header-cell-label{
+	text-align: center;
+}
+
+.grid {
+  height: 255px;
+}
 
 .navbar{
 	padding-bottom: 6px;
@@ -42,4 +57,8 @@ tr:hover {
 
 .page-header{
 	padding-left: 20px;
+}
+
+.cabecera{
+	text-align: center !important;
 }

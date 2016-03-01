@@ -12,7 +12,6 @@ var appExpuestas = angular.module('AppExp',
                                   'ui.grid', 
                                   'ui.grid.selection', 
                                   'ui.grid.edit', 
-                                  'ui.grid.cellNav',
                                   // MODULES CALENDARIO VIRTUAL                                  
                                   'pprModules'
                                 ]);
