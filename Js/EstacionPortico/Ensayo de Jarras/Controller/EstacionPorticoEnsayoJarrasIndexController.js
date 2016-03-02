@@ -1,4 +1,4 @@
-pprModController.controller('EnsayoJarrasIndexController', [
+pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
                                                         '$scope', 
                                                         '$rootScope',
                                                         '$location',
@@ -46,28 +46,28 @@ pprModController.controller('EnsayoJarrasIndexController', [
 			enableRowSelection: true,
 			columnDefs: [
 			  {field: 'id',  visible: false},
-			  {field: 'fechaRegistro', displayName: 'Fecha Registro', type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
-			  {field: 'vasoNumero', displayName: 'Vaso', editableCellTemplate: 'ui-grid/dropdownEditor',
+			  {field: 'fechaRegistro', displayName: 'Fecha Registro', width: "10%", type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
+			  {field: 'vasoNumero', displayName: 'Vaso', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapVaso', editDropdownValueLabel: 'vasoNumero', editDropdownOptionsArray: $rootScope.vasos},
-			  {field: 'planta',displayName: 'Planta', editableCellTemplate: 'ui-grid/dropdownEditor',
+			  {field: 'planta',displayName: 'Planta', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapPlanta', editDropdownValueLabel: 'planta', editDropdownOptionsArray: $rootScope.plantas},
-			  {field: 'color', displayName: 'Color (UPC)'},
-			  {field: 'turbiedad', displayName: 'Turbiedad (UNT)'},
-			  {field: 'cuagulante', displayName: 'Cuagulante'},
-			  {field: 'sustancia', displayName: 'Sustancia', editableCellTemplate: 'ui-grid/dropdownEditor',
+			  {field: 'color', width: "10%", displayName: 'Color (UPC)'},
+			  {field: 'turbiedad', width: "10%", displayName: 'Turbiedad (UNT)'},
+			  {field: 'cuagulante', width: "10%", displayName: 'Cuagulante'},
+			  {field: 'sustancia', width: "10%", displayName: 'Sustancia', editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapSustancia', editDropdownValueLabel: 'sustancia', editDropdownOptionsArray: $rootScope.sustancias},
-			  {field: 'ayudanteCuagulante', displayName: 'Ayudante de Coagulación'},
-			  {field: 'tiempoFormacion',
+			  {field: 'ayudanteCuagulante', width: "10%", displayName: 'Ayudante de Coagulación'},
+			  {field: 'tiempoFormacion', width: "10%", 
 			        cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
 			          if (grid.getCellValue(row,col) >= 10) {
 			            return 'red';
 			          }
 			        }, displayName: 'Tiempo de Formación'},
-			  {field: 'indiceWilcomb', displayName: 'Indice de Wilcomb'},
-			  {field: 'tiempoSedimentacion', displayName: 'Tiempo de Sedimentacion (min)'},
-			  {field: 'dosis', displayName: 'Dosis' ,editableCellTemplate: 'ui-grid/dropdownEditor',
+			  {field: 'indiceWilcomb', width: "10%", displayName: 'Indice de Wilcomb'},
+			  {field: 'tiempoSedimentacion', width: "10%", displayName: 'Tiempo de Sedimentacion (min)'},
+			  {field: 'dosis', width: "10%", displayName: 'Dosis' ,editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss},
-			  {field: 'observacion', displayName: 'Observación'}]
+			  {field: 'observacion', width: "10%", displayName: 'Observación'}]
       	};
 
       	for (var i = 0; i < 6; i++) {
@@ -107,7 +107,7 @@ pprModController.controller('EnsayoJarrasIndexController', [
       	$scope.openModal = function (size) {
 	        var modalInstance = $uibModal.open({
 	          animation: $scope.animationsEnabled,
-	          templateUrl: 'Js/Planta Portico/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
+	          templateUrl: 'Js/EstacionPortico/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
 	          controller: 'ModalAgregarExamenJarrasController',
 	          size: size
 	        });
