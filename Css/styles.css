@@ -10,6 +10,7 @@ tr:hover {
 	background-color: #f5f5f5
 }
 
+
 .ui-grid-header-cell-row {
 	background-color: #dddddd;
 	color: #707070;;
@@ -39,8 +40,76 @@ tr:hover {
 	text-align: center;
 }
 
-.grid {
-  height: 260px;
+div[id$='-0-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-1-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-2-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-3-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-4-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-5-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-6-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-7-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-8-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-9-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-10-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-11-uiGrid-0004-cell'] {
+	background-color: rgba(255, 247, 0, 0.38) !important;
+}
+
+div[id$='-12-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-13-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-14-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-15-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-16-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
+}
+
+div[id$='-17-uiGrid-0004-cell'] {
+	background-color: rgba(0, 31, 255, 0.38) !important;
 }
 
 .navbar{
@@ -61,4 +130,9 @@ tr:hover {
 
 .cabecera{
 	text-align: center !important;
+}
+
+.grey .ui-grid-cell-contents
+{
+  background-color:red;
 }

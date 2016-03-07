@@ -108,7 +108,7 @@ pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
 	        var modalInstance = $uibModal.open({
 	          animation: $scope.animationsEnabled,
 	          templateUrl: 'Js/EstacionPortico/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
-	          controller: 'ModalAgregarExamenJarrasController',
+	          controller: 'EstacionPorticoModalAgregarExamenJarrasController',
 	          size: size
 	        });
       	};

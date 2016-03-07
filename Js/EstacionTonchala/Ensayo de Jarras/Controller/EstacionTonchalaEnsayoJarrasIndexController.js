@@ -1,4 +1,4 @@
-pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
+pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
                                                         '$scope', 
                                                         '$rootScope',
                                                         '$location',
@@ -6,6 +6,7 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
     function ($scope, $rootScope, $location, $uibModal) {
 
     	var datos = [];
+      $scope.tamanoTabla = "295";
       $scope.botonEditarFila = false;
     	$scope.gridOptions = {};
     	var myDate = new Date();
@@ -28,9 +29,7 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
     		{id: 6, vasoNumero: 6}];
 
     	$rootScope.plantas = [
-    		{id: 1, planta: 'P1'},
-    		{id: 2, planta: 'P2'},
-    		{id: 3, planta: 'P1/P2'}];
+    		{id: 1, planta: 'P1'}];
 
     	$rootScope.sustancias = [
     		{id: 1, sustancia: 'Hidroxiclururo'},
@@ -45,6 +44,8 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
   			enableColumnMenus: false,
   			enableFiltering: true,
   			enableRowSelection: true,
+        paginationPageSizes: [12, 24],
+        paginationPageSize: 12,
   			columnDefs: [
   			  {field: 'id',  visible: false},
   			  {field: 'fechaRegistro', displayName: 'Fecha Registro', type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
@@ -67,7 +68,15 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
   			  {field: 'indiceWilcomb', displayName: 'Indice de Wilcomb'},
   			  {field: 'tiempoSedimentacion', displayName: 'Tiempo de Sedimentacion (min)'},
   			  {field: 'dosis', displayName: 'Dosis', editableCellTemplate: 'ui-grid/dropdownEditor',
-  			      cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss},
+  			      cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss,
+              cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                  if (grid.getCellValue(row,col) == 2) {
+                    return 'red';
+                  }
+                  else if(grid.getCellValue(row,col) == 3){
+                    return 'blue';
+                  }
+                }},
   			  {field: 'observacion', displayName: 'Observación'}
         ]
     	};
@@ -103,13 +112,58 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
 	      $scope.gridApi = gridApi;
 	    };
 
+       $scope.nuevoEnsayo = function() {
+        if($scope.gridOptions.data.length < 12){
+          $scope.tamanoTabla = parseInt($scope.tamanoTabla) + 190;
+        }
+         var n = $scope.gridOptions.data.length + 1;
+        for (var i = 0; i < 6; i++) {
+          $scope.gridOptions.data.push({
+              'id': i + n,
+              'fechaRegistro': new Date(myDate),
+              'vasoNumero': '',
+              'planta': '',
+              'color': '',
+              'turbiedad': '',
+              'cuagulante': '',
+              'sustancia': '',
+              'ayudanteCuagulante': '',
+              'tiempoFormacion': '',
+              'indiceWilcomb': '',
+              'tiempoSedimentacion': '',
+              'dosis': '',
+              'observacion': ''
+            });
+        }
+      };
+
+      $scope.eliminarEnsayo = function() {
+        if($scope.gridOptions.data.length > 0){
+          if($scope.gridOptions.data.length <= 12){
+            $scope.tamanoTabla = parseInt($scope.tamanoTabla) - 190;
+          }
+          var n = $scope.gridOptions.data.length;
+          $scope.gridOptions.data.splice(n-6,n);
+        }
+      };
+
+      $scope.exportarCSV = function() {
+        var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
+        $scope.gridApi.exporter.csvExport( 'all', 'all', myElement );
+      };
+
+      $scope.exportarPDF = function() {
+        $scope.gridApi.exporter.pdfExport( 'all', 'all' );
+      };
+
+
 	    $scope.animationsEnabled = true;
 
     	$scope.openModal = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionPonchala/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
-          controller: 'ModalAgregarExamenJarrasController',
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
+          controller: 'EstacionTonchalaModalAgregarExamenJarrasController',
           size: size
         });
     	};
@@ -135,9 +189,7 @@ pprModController.controller('EstacionPonchalaEnsayoJarrasIndexController', [
 
 .filter('mapPlanta', function() {
   var genderHash = {
-    1: 'P1',
-    2: 'P2',
-    3: 'P1/P2'
+    1: 'P1'
   };
   return function(input) {
     if (!input){

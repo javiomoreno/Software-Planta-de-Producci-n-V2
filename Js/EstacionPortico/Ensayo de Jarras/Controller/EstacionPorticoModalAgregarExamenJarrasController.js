@@ -1,4 +1,4 @@
-pprModController.controller('ModalAgregarExamenJarrasController', [
+pprModController.controller('EstacionPorticoModalAgregarExamenJarrasController', [
                                                           '$scope', 
                                                           '$uibModalInstance', 
                                                           '$location', 
