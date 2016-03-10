@@ -1,5 +1,5 @@
 pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
-                                                        '$scope', 
+                                                        '$scope',
                                                         '$rootScope',
                                                         '$location',
                                                         '$uibModal',
@@ -13,8 +13,8 @@ pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
     	$scope.datos = [];
     	$scope.fecha = dias[new Date(myDate).getDay()];
     	$scope.fecha = $scope.fecha +" "+ new Date(myDate).getDate();
-        $scope.fecha = $scope.fecha +", "+ meses[new Date(myDate).getMonth()];
-        $scope.fecha = $scope.fecha+" de "+new Date(myDate).getFullYear();
+      $scope.fecha = $scope.fecha +", "+ meses[new Date(myDate).getMonth()];
+      $scope.fecha = $scope.fecha+" de "+new Date(myDate).getFullYear();
 
     	$rootScope.registro = {};
 
@@ -47,27 +47,28 @@ pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
 			columnDefs: [
 			  {field: 'id',  visible: false},
 			  {field: 'fechaRegistro', displayName: 'Fecha Registro', width: "10%", type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
-			  {field: 'vasoNumero', displayName: 'Vaso', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
+			  {field: 'vasoNumero', displayName: 'Vaso', width: "5%", editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapVaso', editDropdownValueLabel: 'vasoNumero', editDropdownOptionsArray: $rootScope.vasos},
 			  {field: 'planta',displayName: 'Planta', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapPlanta', editDropdownValueLabel: 'planta', editDropdownOptionsArray: $rootScope.plantas},
-			  {field: 'color', width: "10%", displayName: 'Color (UPC)'},
-			  {field: 'turbiedad', width: "10%", displayName: 'Turbiedad (UNT)'},
+			  {field: 'color', width: "10%", displayName: 'Color (UPC)', enableColumnMenu: false, editableCellTemplate:
+              "<div><form name=\"inputForm\"><input type=\"NUMBER\" ng-class=\"'colt' + col.uid\" ui-grid-editor ng-model=\"MODEL_COL_FIELD\"  minlength=1 maxlength=10 required></form></div>"},
+			  {field: 'turbiedad', width: "15%", displayName: 'Turbiedad (UNT)'},
 			  {field: 'cuagulante', width: "10%", displayName: 'Cuagulante'},
 			  {field: 'sustancia', width: "10%", displayName: 'Sustancia', editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapSustancia', editDropdownValueLabel: 'sustancia', editDropdownOptionsArray: $rootScope.sustancias},
-			  {field: 'ayudanteCuagulante', width: "10%", displayName: 'Ayudante de Coagulación'},
-			  {field: 'tiempoFormacion', width: "10%", 
+			  {field: 'ayudanteCuagulante', width: "18%", displayName: 'Ayudante de Coagulación'},
+			  {field: 'tiempoFormacion', width: "15%",
 			        cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
 			          if (grid.getCellValue(row,col) >= 10) {
 			            return 'red';
 			          }
 			        }, displayName: 'Tiempo de Formación'},
-			  {field: 'indiceWilcomb', width: "10%", displayName: 'Indice de Wilcomb'},
-			  {field: 'tiempoSedimentacion', width: "10%", displayName: 'Tiempo de Sedimentacion (min)'},
+			  {field: 'indiceWilcomb', width: "15%", displayName: 'Indice de Wilcomb'},
+			  {field: 'tiempoSedimentacion', width: "20%", displayName: 'Tiempo de Sedimentacion (min)'},
 			  {field: 'dosis', width: "10%", displayName: 'Dosis' ,editableCellTemplate: 'ui-grid/dropdownEditor',
 			      cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss},
-			  {field: 'observacion', width: "10%", displayName: 'Observación'}]
+			  {field: 'observacion', width: "15%", displayName: 'Observación'}]
       	};
 
       	for (var i = 0; i < 6; i++) {
@@ -86,7 +87,7 @@ pprModController.controller('EstacionPorticoEnsayoJarrasIndexController', [
 	            'tiempoSedimentacion': '',
 	            'dosis': '',
 	            'observacion': ''
-	            
+
 	        }
       	}
 		$scope.gridOptions.data = $scope.datos;

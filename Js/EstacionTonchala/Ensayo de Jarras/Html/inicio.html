@@ -21,7 +21,7 @@
             </div>
             <div class="page-header">
                 <h1>
-                    Estación Tonchala
+                    Estación Tónchala
                 </h1>
             </div><!-- /.page-header -->
             <div class="page-content" ng-controller="EstacionTonchalaEnsayoJarrasIndexController as vm">
@@ -43,11 +43,21 @@
                                         Eliminar
                                     </button>
                                 </p>
-                                <uib-accordion close-others="oneAtATime">
-                                    <uib-accordion-group is-open="true" panel-class="panel-info">
-                                        <uib-accordion-heading >
-                                            {{fecha}} <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}" ></i>
-                                        </uib-accordion-heading>
+                                <h3 class="row header blue lighter smaller">
+                                    <span class="col-sm-8">
+                                        <i class="ace-icon fa fa-calendar-o smaller-90"></i>
+                                        {{fecha}}
+                                    </span>
+                                    <span class="col-sm-4">
+                                        <label class="pull-right inline">
+                                            <span>Fecha:</span>
+                                            <button type="button" class="btn btn-xs btn-primary" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            <input type="text" uib-datepicker-popup="dd/MM/yyyy" ng-model="a.fechaVista" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" style="display: none;" ng-change="buscarFecha()"/>
+                                        </label>
+                                    </span>
+                                </h3>
+                                <div class="row">
+                                    <div class="col-xs-12">
                                         <div class="clearfix">
                                             <div class="pull-left tableTools-container">
                                                 <button type="button" class="btn btn-sm btn-success" ng-click="selectRow()">Editar Fila</button>
@@ -78,8 +88,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </uib-accordion-group>
-                                </uib-accordion>
+                                    </div>
+                                </div>
                             </div>                            
                         </div>
                     </uib-tab>
