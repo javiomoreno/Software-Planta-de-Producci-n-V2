@@ -33,7 +33,7 @@
                         <div class="row" style="margin-right: auto;">
                             <div class="col-lg-12">
                                 <p>
-                                    <button class="btn btn-sm btn-white btn-success btn-bold" ng-click="nuevoEnsayo()">
+                                    <button class="btn btn-sm btn-white btn-success btn-bold" ng-click="openModalNuevo('sm')">
                                         <i class="ace-icon fa fa-plus-square bigger-120 success"></i>
                                         Nuevo
                                     </button>
@@ -41,6 +41,11 @@
                                     <button class="btn btn-sm btn-white btn-warning btn-bold" ng-click="eliminarEnsayo()">
                                         <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
                                         Eliminar
+                                    </button>
+
+                                    <button class="btn btn-sm btn-white btn-info btn-bold" ng-click="openModalNuevo('sm')">
+                                        <i class="ace-icon fa fa-plus-square bigger-120 info"></i>
+                                        Informativo
                                     </button>
                                 </p>
                                 <h3 class="row header blue lighter smaller">
@@ -84,13 +89,13 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <div id="tabla" class="gridStyle" ui-grid="gridOptions" ui-grid-edit ui-grid-selection ui-grid-auto-resize ui-grid-pagination ui-grid-exporter style="height: {{tamanoTabla}}px">
+                                                <div id="tabla" class="gridStyle" ui-grid="gridTonchalaJarras.gridOptions" ui-grid-edit ui-grid-selection ui-grid-auto-resize ui-grid-pagination ui-grid-exporter style="height: {{tamanoTabla}}px">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </uib-tab>
                     <uib-tab>

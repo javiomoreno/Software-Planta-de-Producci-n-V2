@@ -7,29 +7,30 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
     function ($scope, $rootScope, $location, $uibModal, $route) {
 
       if ($rootScope.fechaBusqueda !== undefined) {
-        var myDate = new Date($rootScope.fechaBusqueda);
+        $rootScope.myDate = new Date($rootScope.fechaBusqueda);
       }
       else{
-    	 var myDate = new Date();
+        $rootScope.myDate = new Date();
       }
 
       $scope.a = {};
       $scope.a.fechaVista = '';
       var datos = [];
-      $scope.tamanoTabla = "295";
+      $rootScope.tamanoTabla = "295";
       $scope.botonEditarFila = false;
       $scope.gridOptions = {};
     	var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     	$scope.datos = [];
-    	$rootScope.fecha = dias[new Date(myDate).getDay()];
-    	$rootScope.fecha = $rootScope.fecha +" "+ new Date(myDate).getDate();
-      $rootScope.fecha = $rootScope.fecha +", "+ meses[new Date(myDate).getMonth()];
-      $rootScope.fecha = $rootScope.fecha+" de "+new Date(myDate).getFullYear();
+    	$rootScope.fecha = dias[new Date($rootScope.myDate).getDay()];
+    	$rootScope.fecha = $rootScope.fecha +" "+ new Date($rootScope.myDate).getDate();
+      $rootScope.fecha = $rootScope.fecha +", "+ meses[new Date($rootScope.myDate).getMonth()];
+      $rootScope.fecha = $rootScope.fecha+" de "+new Date($rootScope.myDate).getFullYear();
 
     	$rootScope.registro = {};
+      $rootScope.gridTonchalaJarras = {};
 
-    	$rootScope.plantas = [
+    	$rootScope.plantasTonchala = [
     		{id: 1, planta: 'P1'}];
 
     	$rootScope.sustancias = [
@@ -43,7 +44,7 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
 
       var ValidarEntero = "<div><form name=\"inputForm\"><input step=\"any\" type=\"NUMBER\" ng-class=\"'colt' + col.uid\" ui-grid-editor ng-model=\"MODEL_COL_FIELD\"  minlength=1 maxlength=10 required></form></div>";
 
-      $scope.gridOptions = {
+      $rootScope.gridTonchalaJarras.gridOptions = {
         enableColumnMenus: false,
         enableFiltering: true,
         enableRowSelection: true,
@@ -70,7 +71,16 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
           {field: 'indiceWilcomb', width: "15%", displayName: 'Indice de Wilcomb', enableColumnMenu: false, editableCellTemplate: ValidarEntero},
           {field: 'tiempoSedimentacion', width: "20%", displayName: 'Tiempo de Sedimentacion (min)', enableColumnMenu: false, editableCellTemplate: ValidarEntero},
           {field: 'dosis', width: "10%", displayName: 'Dosis' ,editableCellTemplate: 'ui-grid/dropdownEditor',
-              cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss},
+              cellFilter: 'mapDosiss', editDropdownValueLabel: 'dosis', editDropdownOptionsArray: $rootScope.dosiss,  enableColumnMenu: false,
+              cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                if (grid.getCellValue(row,col) == 2) {
+                  return 'green';
+                }
+                else if(grid.getCellValue(row,col) == 3){
+                  return 'blue';
+                }
+              }
+            },
           {field: 'observacion', width: "15%", displayName: 'Observación'}
          ]
       };
@@ -78,9 +88,9 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
     	for (var i = 0; i < 6; i++) {
       	$scope.datos[i] = {
             'id': i,
-            'fechaRegistro': new Date(myDate),
+            'fechaRegistro': new Date($rootScope.myDate),
             'vasoNumero': i + 1,
-            'planta': '',
+            'planta': 1,
             'color': '',
             'turbiedad': '',
             'cuagulante': '',
@@ -93,7 +103,7 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
             'observacion': ''
         }
     	}
-		  $scope.gridOptions.data = $scope.datos;
+		  $rootScope.gridTonchalaJarras.gridOptions.data = $scope.datos;
 
   		$scope.selectRow = function(){
   			if ($scope.gridApi.selection.getSelectedRows().length === 1) {
@@ -102,17 +112,17 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
   		    }
   		};
 
-    	$scope.gridOptions.onRegisterApi = function(gridApi){
+    	$rootScope.gridTonchalaJarras.gridOptions.onRegisterApi = function(gridApi){
 	      $scope.gridApi = gridApi;
 	    };
 
        $scope.nuevoEnsayo = function() {
-        if($scope.gridOptions.data.length < 12){
+        if($rootScope.gridTonchalaJarras.gridOptions.data.length < 12){
           $scope.tamanoTabla = parseInt($scope.tamanoTabla) + 190;
         }
-         var n = $scope.gridOptions.data.length + 1;
+         var n = $rootScope.gridTonchalaJarras.gridOptions.data.length + 1;
         for (var i = 0; i < 6; i++) {
-          $scope.gridOptions.data.push({
+          $rootScope.gridTonchalaJarras.gridOptions.data.push({
               'id': i + n,
               'fechaRegistro': new Date(myDate),
               'vasoNumero': i + 1,
@@ -132,12 +142,12 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
       };
 
       $scope.eliminarEnsayo = function() {
-        if($scope.gridOptions.data.length > 0){
-          if($scope.gridOptions.data.length <= 12){
-            $scope.tamanoTabla = parseInt($scope.tamanoTabla) - 190;
+        if($rootScope.gridTonchalaJarras.gridOptions.data.length > 0){
+          if($rootScope.gridTonchalaJarras.gridOptions.data.length <= 12){
+            $rootScope.tamanoTabla = parseInt($scope.tamanoTabla) - 190;
           }
-          var n = $scope.gridOptions.data.length;
-          $scope.gridOptions.data.splice(n-6,n);
+          var n = $rootScope.gridTonchalaJarras.gridOptions.data.length;
+          $rootScope.gridTonchalaJarras.gridOptions.data.splice(n-6,n);
         }
       };
 
@@ -156,11 +166,20 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
     	$scope.openModal = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalAgregarExamenJarras2.html',
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
           controller: 'EstacionTonchalaModalAgregarExamenJarrasController',
           size: size
         });
     	};
+
+      $scope.openModalNuevo = function (size){
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalNuevoEnsayo.html',
+          controller: 'EstacionTonchalaModalNuevoEnsayoJarrasController',
+          size: size
+        });
+      };
 
       $scope.buscarFecha = function(){
         $rootScope.fechaBusqueda = $scope.a.fechaVista;

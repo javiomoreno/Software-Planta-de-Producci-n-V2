@@ -1,0 +1,18 @@
+<form name="form">
+	<div class="modal-header">
+			<button type="button" class="close" ng-click="$close()" data-dismiss="modal">&times;</button>
+			<h4 class="blue bigger">Seleccionar Planta</h4>
+	</div>
+	<div class="modal-body">
+    <div class="form-group col-sm-12 col-sm-12 col-lg-12 blue">
+      <label for="planta">Planta</label>
+      <select class="form-control" name="planta" id="planta" ng-model="planta"
+        ng-options="opcion.id as opcion.planta for opcion in plantasTonchala" required data-placeholder="BC & ON">
+				<option value="">Seleccione una Planta</option>
+      </select>
+    </div>
+	<div class="modal-footer">
+	  <button class="btn btn-sm btn-success" ng-click="Aceptar()">Aceptar</button>
+	  <button class="btn btn-sm btn-danger" ng-click="$close()">Cerrar</button>
+	</div>
+</form>
