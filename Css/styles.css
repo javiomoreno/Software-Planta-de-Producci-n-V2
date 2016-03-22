@@ -27,6 +27,16 @@
 	text-align: center;
 }
 
+.primero{
+	background-color: rgba(0, 31, 255, 0.38) !important;
+	border-right-color: #D4D4D4;
+}
+
+.segundo{
+	background-color: rgba(255, 247, 0, 0.38) !important;
+	border-right-color: #D4D4D4;
+}
+
 div[id$='-0-uiGrid-0004-cell'] {
 	background-color: rgba(0, 31, 255, 0.38) !important;
 }

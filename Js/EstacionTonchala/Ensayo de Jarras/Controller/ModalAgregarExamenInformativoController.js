@@ -1,7 +1,7 @@
-pprModController.controller('EstacionTonchalaModalAgregarExamenJarrasController', [
-                                                          '$scope', 
-                                                          '$uibModalInstance', 
-                                                          '$location', 
+pprModController.controller('ModalAgregarExamenInformativoController', [
+                                                          '$scope',
+                                                          '$uibModalInstance',
+                                                          '$location',
     function ($scope, $uibModalInstance, $location){
 
       $scope.today = function() {

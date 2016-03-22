@@ -1,4 +1,4 @@
-pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
+pprModController.controller('InformativoEnsayoController', [
                                                         '$scope',
                                                         '$rootScope',
                                                         '$location',
@@ -6,29 +6,29 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
                                                         '$route',
     function ($scope, $rootScope, $location, $uibModal, $route) {
 
-      if ($rootScope.fechaBusqueda !== undefined) {
-        $rootScope.myDate = new Date($rootScope.fechaBusqueda);
+      console.log($rootScope.fechaBusquedaInformativo);
+      if ($rootScope.fechaBusquedaInformativo !== undefined) {
+        $rootScope.myDateInformativo = new Date($rootScope.fechaBusquedaInformativo);
       }
       else{
-        $rootScope.myDate = new Date();
+        $rootScope.myDateInformativo = new Date();
       }
 
       $scope.a = {};
-      $scope.a.fechaVista = '';
+      $scope.a.fechaVistaInformativo = '';
       var datos = [];
-      $rootScope.tamanoTabla = "295";
+      $rootScope.tamanoTablaInformativo = "295";
       $scope.botonEditarFila = false;
-      $scope.gridOptions = {};
     	var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
     	$scope.datos = [];
-    	$rootScope.fecha = dias[new Date($rootScope.myDate).getDay()];
-    	$rootScope.fecha = $rootScope.fecha +" "+ new Date($rootScope.myDate).getDate();
-      $rootScope.fecha = $rootScope.fecha +", "+ meses[new Date($rootScope.myDate).getMonth()];
-      $rootScope.fecha = $rootScope.fecha+" de "+new Date($rootScope.myDate).getFullYear();
+    	$rootScope.fechaInformativo = dias[new Date($rootScope.myDateInformativo).getDay()];
+    	$rootScope.fechaInformativo = $rootScope.fechaInformativo +" "+ new Date($rootScope.myDateInformativo).getDate();
+      $rootScope.fechaInformativo = $rootScope.fechaInformativo +", "+ meses[new Date($rootScope.myDateInformativo).getMonth()];
+      $rootScope.fechaInformativo = $rootScope.fechaInformativo+" de "+new Date($rootScope.myDateInformativo).getFullYear();
 
     	$rootScope.registro = {};
-      $rootScope.gridTonchalaJarras = {};
+      $rootScope.gridTonchalaJarrasInformativo = {};
 
     	$rootScope.plantasTonchala = [
     		{id: 1, planta: 'P1'}];
@@ -44,14 +44,23 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
 
       var ValidarEntero = "<div><form name=\"inputForm\"><input step=\"any\" type=\"NUMBER\" ng-class=\"'colt' + col.uid\" ui-grid-editor ng-model=\"MODEL_COL_FIELD\"  minlength=1 maxlength=10 required></form></div>";
 
-      $rootScope.gridTonchalaJarras.gridOptions = {
+      $rootScope.gridTonchalaJarrasInformativo.gridOptions = {
         enableColumnMenus: false,
         enableFiltering: true,
         enableRowSelection: true,
         paginationPageSizes: [6, 12, 24, 30, 60],
         paginationPageSize: 60,
         columnDefs: [
-          {field: 'id',  visible: false},
+          {field: 'id', displayName: '', cellEditableCondition: false, enableCellFilter: false,
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+              if (grid.getCellValue(row,col) < 6) {
+                return 'primero';
+              }
+              else if(grid.getCellValue(row,col) >= 6 && grid.getCellValue(row,col) < 12) {
+                return 'segundo';
+              }
+            },
+            cellTemplate: '<div style="text-align: center;padding-top: 5px;"><a style="color:#307ecc" href ng-click="grid.appScope.generateReport(row)"><i class="ace-icon fa fa-pencil bigger-130"></i></a></div>' },
           {field: 'fechaRegistro', enableCellEdit: false, displayName: 'Fecha Registro', width: "10%", type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
           {field: 'vasoNumero', enableCellEdit: false, displayName: 'Vaso', width: "5%"},
           {field: 'planta', enableCellEdit: false, displayName: 'Planta', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -88,7 +97,7 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
     	for (var i = 0; i < 6; i++) {
       	$scope.datos[i] = {
             'id': i,
-            'fechaRegistro': new Date($rootScope.myDate),
+            'fechaRegistro': new Date($rootScope.myDateInformativo),
             'vasoNumero': i + 1,
             'planta': 1,
             'color': '',
@@ -103,53 +112,18 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
             'observacion': ''
         }
     	}
-		  $rootScope.gridTonchalaJarras.gridOptions.data = $scope.datos;
+		  $rootScope.gridTonchalaJarrasInformativo.gridOptions.data = $scope.datos;
 
   		$scope.selectRow = function(){
   			if ($scope.gridApi.selection.getSelectedRows().length === 1) {
-  				$rootScope.registro = $scope.gridApi.selection.getSelectedRows()[0];
+  				$rootScope.registroInformativo = $scope.gridApi.selection.getSelectedRows()[0];
   		    	$scope.openModal('md');
   		    }
   		};
 
-    	$rootScope.gridTonchalaJarras.gridOptions.onRegisterApi = function(gridApi){
+    	$rootScope.gridTonchalaJarrasInformativo.gridOptions.onRegisterApi = function(gridApi){
 	      $scope.gridApi = gridApi;
 	    };
-
-       $scope.nuevoEnsayo = function() {
-        if($rootScope.gridTonchalaJarras.gridOptions.data.length < 12){
-          $scope.tamanoTabla = parseInt($scope.tamanoTabla) + 190;
-        }
-         var n = $rootScope.gridTonchalaJarras.gridOptions.data.length + 1;
-        for (var i = 0; i < 6; i++) {
-          $rootScope.gridTonchalaJarras.gridOptions.data.push({
-              'id': i + n,
-              'fechaRegistro': new Date(myDate),
-              'vasoNumero': i + 1,
-              'planta': '',
-              'color': '',
-              'turbiedad': '',
-              'cuagulante': '',
-              'sustancia': '',
-              'ayudanteCuagulante': '',
-              'tiempoFormacion': '',
-              'indiceWilcomb': '',
-              'tiempoSedimentacion': '',
-              'dosis': '',
-              'observacion': ''
-            });
-        }
-      };
-
-      $scope.eliminarEnsayo = function() {
-        if($rootScope.gridTonchalaJarras.gridOptions.data.length > 0){
-          if($rootScope.gridTonchalaJarras.gridOptions.data.length <= 12){
-            $rootScope.tamanoTabla = parseInt($scope.tamanoTabla) - 190;
-          }
-          var n = $rootScope.gridTonchalaJarras.gridOptions.data.length;
-          $rootScope.gridTonchalaJarras.gridOptions.data.splice(n-6,n);
-        }
-      };
 
       $scope.exportarCSV = function() {
         var myElement = angular.element(document.querySelectorAll(".custom-csv-link-location"));
@@ -166,8 +140,8 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
     	$scope.openModal = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalAgregarExamenJarras.html',
-          controller: 'EstacionTonchalaModalAgregarExamenJarrasController',
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalAgregarExamenInformativo.html',
+          controller: 'ModalAgregarExamenInformativoController',
           size: size
         });
     	};
@@ -175,14 +149,25 @@ pprModController.controller('EstacionTonchalaEnsayoJarrasIndexController', [
       $scope.openModalNuevo = function (size){
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/modalNuevoEnsayo.html',
-          controller: 'EstacionTonchalaModalNuevoEnsayoJarrasController',
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalNuevoEnsayoInformativo.html',
+          controller: 'ModalNuevoEnsayoInformativoController',
+          size: size
+        });
+      };
+
+      $scope.openModalEliminar = function (size){
+        var modalInstance = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalEliminarEnsayoInformativo.html',
+          controller: 'EliminarEnsayoInformativoController',
           size: size
         });
       };
 
       $scope.buscarFecha = function(){
-        $rootScope.fechaBusqueda = $scope.a.fechaVista;
+        $rootScope.fechaBusquedaInformativo = $scope.a.fechaVistaInformativo;
+        $rootScope.pesatana.ensayo = false;
+        $rootScope.pesatana.informativo = true;
         $route.reload();
       };
 

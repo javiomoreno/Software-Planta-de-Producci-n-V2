@@ -5,8 +5,8 @@ appExpuestas.config(['$routeProvider', function ($routeProvider) {
 	        controller: 'EstacionPorticoEnsayoJarrasIndexController'
       	})
       	.when('/estacionTonchala/ensayoJarras', {
-	        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/inicio.html',
-	        controller: 'EstacionTonchalaEnsayoJarrasIndexController'
+	        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/inicio.html',
+	        controller: 'InicioController'
       	})
 		.otherwise({
 			redirectTo: '/'

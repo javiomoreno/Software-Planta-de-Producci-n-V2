@@ -1,17 +1,25 @@
 <span style="text-align: center;"><h3>Menú</h3></span>
 <ul class="nav nav-list">
 	<li class="active highlight">
-		<a href="#/estacionTonchala/ensayoJarras">
-			<i class="menu-icon fa fa-home"></i>
-			<span class="menu-text"> Planta Tónchala</span>
+		<a ng-click="isCollapsed = !isCollapsed">
+			<i class="menu-icon fa fa-flask"></i>
+			<span class="menu-text"> Ensayo de Jarras</span>
+			<b class="arrow fa fa-angle-down"></b>
 		</a>
 		<b class="arrow"></b>
-	</li>
-	<li class="active highlight">
-		<a href="#/estacionPortico/ensayoJarras">
-			<i class="menu-icon fa fa-calendar"></i>
-			<span class="menu-text"> Planta Pórtico</span>
-		</a>
-		<b class="arrow"></b>
+		<ul class="submenu" uib-collapse="isCollapsed">
+			<li class="">
+				<a href="#/estacionTonchala/ensayoJarras" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+						Planta Tónchala
+				</a>
+			</li>
+			<li class="">
+				<a href="#/estacionPortico/ensayoJarras" class="dropdown-toggle">
+					<i class="menu-icon fa fa-caret-right"></i>
+						Planta Pórtico
+				</a>
+			</li>
+		</ul>
 	</li>
 </ul>

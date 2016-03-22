@@ -1,0 +1,92 @@
+<form name="form">
+	<div class="modal-header">
+			<button type="button" class="close" ng-click="$close()" data-dismiss="modal">&times;</button>
+			<h4 class="blue bigger">Editar Fila</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row" style="margin-right: auto;">
+			<div class="col-md-6 col-lg-6 blue">
+		        <label for="fecha">Fecha</label>
+		        <input type="text" class="form-control" ng-model="fecha" disabled="true" />
+	     	</div>
+			<div class="form-group col-sm-12 col-lg-6 blue">
+				<label for="vasoNumero">Número de Vaso</label>
+				<input type="text" class="form-control" ng-model="registroInformativo.vasoNumero" disabled="true" />
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="planta">Planta</label>
+				<select disabled="true" class="form-control" name="sustancia" id="sustancia" ng-model="registroInformativo.planta" ng-options="opcion.id as opcion.planta for opcion in plantasTonchala" required>
+					<option value="">Seleccione Sustancia</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="color">Color (UPC)</label>
+				<input type="NUMBER" class="form-control"  step="any" placeholder="Color (UPC)"
+					   id="color" ng-model="registroInformativo.color" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="cuagulante">Cuagulante</label>
+				<input type="NUMBER" class="form-control" step="any" placeholder="Cuagulante"
+					   id="cuagulante" ng-model="registroInformativo.cuagulante" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="turbiedad">Turbiedad (UNT)</label>
+				<input type="NUMBER" class="form-control" step="any" placeholder="Turbiedad (UNT)"
+					   id="turbiedad" ng-model="registroInformativo.turbiedad" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="ayudanteCuagulante">Ayudante de Cuagulación</label>
+				<input type="text" class="form-control"  placeholder="Ayudante de Cuagulación"
+					   id="ayudanteCuagulante" ng-model="registroInformativo.ayudanteCuagulante" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="sustancia">Sustancia</label>
+				<select class="form-control" name="sustancia" id="sustancia" ng-model="registroInformativo.sustancia" ng-options="opcion.id as opcion.sustancia for opcion in sustancias" required>
+					<option value="">Seleccione Sustancia</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="tiempoFormacion">Tiempo de Formación</label>
+				<input type="NUMBER" class="form-control" step="any" placeholder="Tiempo de Formación"
+					   id="tiempoFormacion" ng-model="registroInformativo.tiempoFormacion" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="indiceWilcomb">Indice de Wilcomb</label>
+				<input type="text" class="form-control"  placeholder="Indice de Wilcomb"
+					   id="indiceWilcomb" ng-model="registroInformativo.indiceWilcomb" required/>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="tiempoSedimentacion">Tiempo de Sedimentación</label>
+				<input type="NUMBER" class="form-control" step="any" placeholder="Tiempo de Sedimentación"
+					   id="tiempoSedimentacion" ng-model="registroInformativo.tiempoSedimentacion" required/>
+			</div>
+			<div class="form-group col-sm-12 col-sm-6 col-lg-6 blue">
+				<label for="dosis">dosis</label>
+				<select class="form-control" name="dosis" id="dosis" ng-model="registroInformativo.dosis" ng-options="opcion.id as opcion.dosis for opcion in dosiss" required>
+					<option value="">Seleccione Dosis</option>
+				</select>
+			</div>
+		</div>
+		<div class="row" style="margin-right: auto;">
+			<div class="form-group col-lg-12 blue">
+			    <label for="mensaje">Observación</label>
+			    <textarea class="form-control" id="mensaje"
+		           placeholder="Observación" ng-model="registroInformativo.observacion"></textarea>
+		 	</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+	  <button class="btn btn-sm btn-success" ng-click="Agregar()">Guardar</button>
+	  <button class="btn btn-sm btn-danger" ng-click="$close()">Cerrar</button>
+	</div>
+</form>

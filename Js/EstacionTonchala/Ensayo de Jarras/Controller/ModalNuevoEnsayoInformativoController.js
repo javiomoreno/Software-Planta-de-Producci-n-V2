@@ -1,4 +1,4 @@
-pprModController.controller('EstacionTonchalaModalNuevoEnsayoJarrasController', [
+pprModController.controller('ModalNuevoEnsayoInformativoController', [
                                                           '$scope',
                                                           '$rootScope',
                                                           '$uibModalInstance',
@@ -7,14 +7,14 @@ pprModController.controller('EstacionTonchalaModalNuevoEnsayoJarrasController', 
 
       $scope.Aceptar = function () {
         if($scope.planta !== undefined){
-          if($rootScope.gridTonchalaJarras.gridOptions.data.length < 12){
-            $rootScope.tamanoTabla = parseInt($rootScope.tamanoTabla) + 190;
+          if($rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length < 12){
+            $rootScope.tamanoTablaInformativo = parseInt($rootScope.tamanoTablaInformativo) + 190;
           }
-           var n = $rootScope.gridTonchalaJarras.gridOptions.data.length + 1;
+           var n = $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length;
           for (var i = 0; i < 6; i++) {
-            $rootScope.gridTonchalaJarras.gridOptions.data.push({
+            $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.push({
                 'id': i + n,
-                'fechaRegistro': new Date($rootScope.myDate),
+                'fechaRegistro': new Date($rootScope.myDateInformativo),
                 'vasoNumero': i + 1,
                 'planta': $scope.planta,
                 'color': '',
