@@ -114,12 +114,10 @@ pprModController.controller('InformativoEnsayoController', [
     	}
 		  $rootScope.gridTonchalaJarrasInformativo.gridOptions.data = $scope.datos;
 
-  		$scope.selectRow = function(){
-  			if ($scope.gridApi.selection.getSelectedRows().length === 1) {
-  				$rootScope.registroInformativo = $scope.gridApi.selection.getSelectedRows()[0];
-  		    	$scope.openModal('md');
-  		    }
-  		};
+      $scope.generateReport = function(row) {
+          $rootScope.registroInformativo = row.entity;
+          $scope.openModal('md');
+      };
 
     	$rootScope.gridTonchalaJarrasInformativo.gridOptions.onRegisterApi = function(gridApi){
 	      $scope.gridApi = gridApi;
