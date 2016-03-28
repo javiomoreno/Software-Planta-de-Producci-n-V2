@@ -5,14 +5,32 @@ pprModController.controller('InicioEnsayoController', [
                                                         '$uibModal',
                                                         '$route',
                                                         'uiGridConstants',
-    function ($scope, $rootScope, $location, $uibModal, $route, uiGridConstants) {
+                                                        'localStorageService',
+    function ($scope, $rootScope, $location, $uibModal, $route, uiGridConstants, localStorageService) {
 
-      console.log($rootScope.fechaBusqueda);
+      $scope.datos = [];
+      $scope.bandera = false;
+
+      var todosInStore = localStorageService.get('ensayoJarras');
+
+      $rootScope.registroEnsayoJarras = todosInStore || [];
+
+      $scope.$watch('ensayoJarras', function(){
+        localStorageService.add('ensayoJarras', $rootScope.registroEnsayoJarras);
+      }, true);
+
       if ($rootScope.fechaBusqueda !== undefined) {
         $rootScope.myDate = new Date($rootScope.fechaBusqueda);
       }
       else{
         $rootScope.myDate = new Date();
+      }
+
+      for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+        if (new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getTime() == new Date($rootScope.myDate).getTime()) {
+          $scope.datos.push($rootScope.registroEnsayoJarras[i]);
+          $scope.bandera = true;
+        }
       }
 
       $scope.a = {};
@@ -111,24 +129,6 @@ pprModController.controller('InicioEnsayoController', [
          ]
       };
 
-    	for (var i = 0; i < 6; i++) {
-      	$scope.datos[i] = {
-            'id': i,
-            'fechaRegistro': new Date($rootScope.myDate),
-            'vasoNumero': i + 1,
-            'planta': 1,
-            'color': '',
-            'turbiedad': '',
-            'cuagulante': '',
-            'sustancia': '',
-            'ayudanteCuagulante': '',
-            'tiempoFormacion': '',
-            'indiceWilcomb': '',
-            'tiempoSedimentacion': '',
-            'dosis': '',
-            'observacion': ''
-        }
-    	}
 		  $rootScope.gridTonchalaJarras.gridOptions.data = $scope.datos;
 
       $scope.generateReport = function(row) {

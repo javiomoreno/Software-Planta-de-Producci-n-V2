@@ -10,9 +10,9 @@ pprModController.controller('ModalNuevoEnsayoJarrasController', [
           if($rootScope.gridTonchalaJarras.gridOptions.data.length < 12){
             $rootScope.tamanoTabla = parseInt($rootScope.tamanoTabla) + 190;
           }
-           var n = $rootScope.gridTonchalaJarras.gridOptions.data.length;
+          var n = $rootScope.gridTonchalaJarras.gridOptions.data.length;
           for (var i = 0; i < 6; i++) {
-            $rootScope.gridTonchalaJarras.gridOptions.data.push({
+            $rootScope.registroEnsayoJarras.push({
                 'id': i + n,
                 'fechaRegistro': new Date($rootScope.myDate),
                 'vasoNumero': i + 1,
@@ -27,8 +27,9 @@ pprModController.controller('ModalNuevoEnsayoJarrasController', [
                 'tiempoSedimentacion': '',
                 'dosis': '',
                 'observacion': ''
-              });
+            });
           }
+          console.log($rootScope.registroEnsayoJarras);
           $uibModalInstance.close();
         }
       };

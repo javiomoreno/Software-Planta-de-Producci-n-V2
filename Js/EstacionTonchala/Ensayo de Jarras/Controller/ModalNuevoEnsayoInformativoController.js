@@ -10,7 +10,7 @@ pprModController.controller('ModalNuevoEnsayoInformativoController', [
           if($rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length < 12){
             $rootScope.tamanoTablaInformativo = parseInt($rootScope.tamanoTablaInformativo) + 190;
           }
-           var n = $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length;
+          var n = $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length;
           for (var i = 0; i < 6; i++) {
             $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.push({
                 'id': i + n,
