@@ -1,8 +1,59 @@
 pprModController.controller('ModalAgregarExamenJarrasController', [
                                                           '$scope',
+                                                          '$rootScope',
                                                           '$uibModalInstance',
                                                           '$location',
-    function ($scope, $uibModalInstance, $location){
+    function ($scope, $rootScope, $uibModalInstance, $location){
+
+      if ($rootScope.registro.estado === 1) {
+        $scope.checkboxModel = {
+				   value : true
+			 	};
+			}
+			else{
+				$scope.checkboxModel = {
+				   value : false
+			 	};
+      }
+
+      $scope.cambiarEstado = function() {
+        if($rootScope.registro.estado === 1){
+          for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+            if ($rootScope.registroEnsayoJarras[i].enjacons === $rootScope.registro.enjacons) {
+              $rootScope.registroEnsayoJarras[i].estado = 2;
+            }
+            else {
+              $rootScope.registroEnsayoJarras[i].estado = 1;
+            }
+          }
+          for (var i = 0; i < $rootScope.gridTonchalaJarras.gridOptions.data.length; i++) {
+            if ( $rootScope.gridTonchalaJarras.gridOptions.data[i].enjacons === $rootScope.registro.enjacons) {
+              $rootScope.gridTonchalaJarras.gridOptions.data[i].estado = 2;
+            }
+            else {
+              $rootScope.gridTonchalaJarras.gridOptions.data[i].estado = 1;
+            }
+          }
+        }
+        else{
+          for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+            if ($rootScope.registroEnsayoJarras[i].enjacons === $rootScope.registro.enjacons) {
+              $rootScope.registroEnsayoJarras[i].estado = 1;
+            }
+            else {
+              $rootScope.registroEnsayoJarras[i].estado = 2;
+            }
+          }
+          for (var i = 0; i < $rootScope.gridTonchalaJarras.gridOptions.data.length; i++) {
+            if ( $rootScope.gridTonchalaJarras.gridOptions.data[i].enjacons === $rootScope.registro.enjacons) {
+               $rootScope.gridTonchalaJarras.gridOptions.data[i].estado = 1;
+            }
+            else {
+              $rootScope.registroEnsayoJarras[i].estado = 2;
+            }
+          }
+        }
+    	}
 
       $scope.Agregar = function () {
         console.log("hola");

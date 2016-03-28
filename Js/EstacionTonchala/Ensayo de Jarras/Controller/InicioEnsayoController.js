@@ -9,38 +9,49 @@ pprModController.controller('InicioEnsayoController', [
     function ($scope, $rootScope, $location, $uibModal, $route, uiGridConstants, localStorageService) {
 
       $scope.datos = [];
-      $scope.bandera = false;
+      $rootScope.banderaCantidadRegistros = false;
+      var fecha = {};
+      var cantidadRegistros = 0;
 
       var todosInStore = localStorageService.get('ensayoJarras');
 
       $rootScope.registroEnsayoJarras = todosInStore || [];
 
-      $scope.$watch('ensayoJarras', function(){
+      $scope.$watch('registroEnsayoJarras', function(){
         localStorageService.add('ensayoJarras', $rootScope.registroEnsayoJarras);
       }, true);
 
       if ($rootScope.fechaBusqueda !== undefined) {
         $rootScope.myDate = new Date($rootScope.fechaBusqueda);
+        fecha = new Date( new Date($rootScope.myDate).getFullYear(), new Date($rootScope.myDate).getMonth(), new Date($rootScope.myDate).getDate());
       }
       else{
         $rootScope.myDate = new Date();
+        fecha = new Date( new Date($rootScope.myDate).getFullYear(), new Date($rootScope.myDate).getMonth(), new Date($rootScope.myDate).getDate());
       }
 
       for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
-        if (new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getTime() == new Date($rootScope.myDate).getTime()) {
+        var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
+        if (new Date(fecha2).getTime() == new Date(fecha).getTime()) {
           $scope.datos.push($rootScope.registroEnsayoJarras[i]);
-          $scope.bandera = true;
+          $rootScope.banderaCantidadRegistros = true;
+          cantidadRegistros ++;
         }
       }
 
       $scope.a = {};
       $scope.a.fechaVista = '';
       var datos = [];
-      $rootScope.tamanoTabla = "295";
+      if (cantidadRegistros > 6) {
+        $rootScope.tamanoTabla = "485";
+      }
+      else {
+        $rootScope.tamanoTabla = "295";
+      }
       $scope.botonEditarFila = false;
     	var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    	$scope.datos = [];
+
     	$rootScope.fecha = dias[new Date($rootScope.myDate).getDay()];
     	$rootScope.fecha = $rootScope.fecha +" "+ new Date($rootScope.myDate).getDate();
       $rootScope.fecha = $rootScope.fecha +", "+ meses[new Date($rootScope.myDate).getMonth()];
@@ -51,6 +62,10 @@ pprModController.controller('InicioEnsayoController', [
 
     	$rootScope.plantasTonchala = [
     		{id: 1, planta: 'P1'}];
+
+      $rootScope.estados = [
+      		{id: 1, estado: 'Activo'},
+          {id: 2, estado: 'Inactivo'}];
 
     	$rootScope.sustancias = [
     		{id: 1, sustancia: 'Hidroxiclururo'},
@@ -80,6 +95,8 @@ pprModController.controller('InicioEnsayoController', [
               }
             },
             cellTemplate: '<div style="text-align: center;padding-top: 5px;"><a style="color:#307ecc" href ng-click="grid.appScope.generateReport(row)"><i class="ace-icon fa fa-pencil bigger-130"></i></a></div>' },
+          {field: 'estado', enableCellEdit: false, displayName: 'Estado', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
+                cellFilter: 'mapEstados', editDropdownValueLabel: 'estado', editDropdownOptionsArray: $rootScope.estados},
           {field: 'fechaRegistro', enableCellEdit: false, displayName: 'Fecha Registro', width: "10%",
             type: 'date', cellFilter: 'date:"dd/MM/yyyy"',
             sortFn: function (aDate, bDate) {
@@ -87,10 +104,10 @@ pprModController.controller('InicioEnsayoController', [
                var a=new Date(aDate);
                var b=new Date(bDate);
                if (a < b) {
-                 return -1;
+                 return 1;
                }
                else if (a > b) {
-                 return 1;
+                 return -1;
                }
                else {
                  return 0;
@@ -300,6 +317,20 @@ pprModController.controller('InicioEnsayoController', [
   var genderHash = {
     1: 'Hidroxiclururo',
     2: 'Sulfato'
+  };
+  return function(input) {
+    if (!input){
+      return '';
+    } else {
+      return genderHash[input];
+    }
+  };
+})
+
+.filter('mapEstados', function() {
+  var genderHash = {
+    1: 'Activo',
+    2: 'Inactivo'
   };
   return function(input) {
     if (!input){

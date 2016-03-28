@@ -5,6 +5,14 @@
 	</div>
 	<div class="modal-body">
 		<div class="row" style="margin-right: auto;">
+			<div class="col-md-12 col-lg-12 blue">
+		        <label for="fecha">Activar Ensayo de Jarras </label>
+						<input id="skip-validation" type="checkbox" ng-click="cambiarEstado()" ng-model="checkboxModel.value" class="ace ace-switch ace-switch-4" />
+						<span class="lbl middle"></span>
+     	</div>
+		</div>
+		<hr>
+		<div class="row" style="margin-right: auto;">
 			<div class="col-md-6 col-lg-6 blue">
 		        <label for="fecha">Fecha</label>
 		        <input type="text" class="form-control" ng-model="fecha" disabled="true" />
