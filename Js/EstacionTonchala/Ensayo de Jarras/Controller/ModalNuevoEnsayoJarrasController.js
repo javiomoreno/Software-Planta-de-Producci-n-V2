@@ -16,7 +16,7 @@ pprModController.controller('ModalNuevoEnsayoJarrasController', [
           var fecha = new Date( new Date(fechaNuevo).getFullYear(), new Date(fechaNuevo).getMonth(), new Date(fechaNuevo).getDate());
           for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
             var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
-            if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras.enjatipo === 1) {
+            if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 1) {
               $rootScope.registroEnsayoJarras[i].estado = 2;
             }
           }
