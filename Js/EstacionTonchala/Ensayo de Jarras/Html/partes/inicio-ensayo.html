@@ -12,35 +12,35 @@
             </button>
         </p>
         <h3 class="row header blue lighter smaller">
-            <span class="col-sm-8">
+            <span class="col-sm-12">
               <a class="blue" style="float:left; padding-right: 5px;" href ng-click="open()">
                 <i class="ace-icon ace-icon fa fa-calendar bigger-100"></i>
               </a>
               <input type="text" uib-datepicker-popup="dd/MM/yyyy" ng-model="a.fechaVista" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" style="display: none;" ng-change="buscarFecha()"/>
                 {{fecha}}
+              <span ng-if="banderaCantidadRegistros == true">
+                <div class="pull-right tableTools-container">
+                    <div class="dt-buttons btn-overlap btn-group">
+                        <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarCSV()">
+                            <span>
+                                <i class="fa fa-file-excel-o bigger-110 green"></i>
+                                <span class="hidden">Exportar a Excel</span>
+                            </span>
+                        </a>
+                        <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarPDF()">
+                            <span>
+                                <i class="fa fa-file-pdf-o bigger-110 red"></i>
+                                <span class="hidden">Exportar a PDF</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+              </span>
             </span>
         </h3>
         <span ng-if="banderaCantidadRegistros == true">
           <div class="row">
               <div class="col-xs-12">
-                  <div class="clearfix">
-                      <div class="pull-right tableTools-container">
-                          <div class="dt-buttons btn-overlap btn-group">
-                              <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarCSV()">
-                                  <span>
-                                      <i class="fa fa-file-excel-o bigger-110 green"></i>
-                                      <span class="hidden">Exportar a Excel</span>
-                                  </span>
-                              </a>
-                              <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarPDF()">
-                                  <span>
-                                      <i class="fa fa-file-pdf-o bigger-110 red"></i>
-                                      <span class="hidden">Exportar a PDF</span>
-                                  </span>
-                              </a>
-                          </div>
-                      </div>
-                  </div>
                   <div class="table-header">
                       Carga de Datos
                   </div>

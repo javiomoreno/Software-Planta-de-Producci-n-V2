@@ -11,7 +11,16 @@ pprModDirective.directive('informativoEnsayo',
   function () {
       return {
         restrict: 'E',
-        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/partes/informativo-ensayo.html'
+        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/partes/informativo-ensayo1.html'
+      };
+  }
+);
+
+pprModDirective.directive('modalFiltar',
+  function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/partes/modal-filtrar.html'
       };
   }
 );

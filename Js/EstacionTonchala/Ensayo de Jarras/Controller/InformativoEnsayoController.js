@@ -4,24 +4,53 @@ pprModController.controller('InformativoEnsayoController', [
                                                         '$location',
                                                         '$uibModal',
                                                         '$route',
-    function ($scope, $rootScope, $location, $uibModal, $route) {
+                                                        'uiGridConstants',
+                                                        'localStorageService',
+    function ($scope, $rootScope, $location, $uibModal, $route, uiGridConstants, localStorageService) {
 
-      console.log($rootScope.fechaBusquedaInformativo);
+      $scope.datos = [];
+      $rootScope.banderaCantidadRegistrosInformativo = false;
+      var fecha = {};
+      var cantidadRegistros = 0;
+
+      var todosInStore = localStorageService.get('ensayoJarras');
+
+      $rootScope.registroEnsayoJarras = todosInStore || [];
+
+      $scope.$watch('registroEnsayoJarras', function(){
+        localStorageService.add('ensayoJarras', $rootScope.registroEnsayoJarras);
+      }, true);
+
       if ($rootScope.fechaBusquedaInformativo !== undefined) {
         $rootScope.myDateInformativo = new Date($rootScope.fechaBusquedaInformativo);
+        fecha = new Date( new Date($rootScope.myDateInformativo).getFullYear(), new Date($rootScope.myDateInformativo).getMonth(), new Date($rootScope.myDateInformativo).getDate());
       }
       else{
         $rootScope.myDateInformativo = new Date();
+        fecha = new Date( new Date($rootScope.myDateInformativo).getFullYear(), new Date($rootScope.myDateInformativo).getMonth(), new Date($rootScope.myDateInformativo).getDate());
+      }
+
+      for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+        var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
+        if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo == 2) {
+          $scope.datos.push($rootScope.registroEnsayoJarras[i]);
+          $rootScope.banderaCantidadRegistrosInformativo = true;
+          cantidadRegistros ++;
+        }
       }
 
       $scope.a = {};
       $scope.a.fechaVistaInformativo = '';
-      var datos = [];
-      $rootScope.tamanoTablaInformativo = "295";
+      if (cantidadRegistros > 6) {
+        $rootScope.tamanoTablaInformativo = "455";
+      }
+      else {
+        $rootScope.tamanoTablaInformativo = "260";
+      }
       $scope.botonEditarFila = false;
     	var dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
     	var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    	$scope.datos = [];
+
     	$rootScope.fechaInformativo = dias[new Date($rootScope.myDateInformativo).getDay()];
     	$rootScope.fechaInformativo = $rootScope.fechaInformativo +" "+ new Date($rootScope.myDateInformativo).getDate();
       $rootScope.fechaInformativo = $rootScope.fechaInformativo +", "+ meses[new Date($rootScope.myDateInformativo).getMonth()];
@@ -46,22 +75,28 @@ pprModController.controller('InformativoEnsayoController', [
 
       $rootScope.gridTonchalaJarrasInformativo.gridOptions = {
         enableColumnMenus: false,
-        enableFiltering: true,
+        enableFiltering: false,
         enableRowSelection: true,
         paginationPageSizes: [6, 12, 24, 30, 60],
         paginationPageSize: 60,
         columnDefs: [
-          {field: 'id', displayName: '', cellEditableCondition: false, enableCellFilter: false,
+          {field: 'id', displayName: '', cellEditableCondition: false, enableFiltering: false,
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-              if (grid.getCellValue(row,col) < 6) {
+              if (parImpar(grid.getCellValue(row,col)/6) === "par") {
                 return 'primero';
               }
-              else if(grid.getCellValue(row,col) >= 6 && grid.getCellValue(row,col) < 12) {
+              else {
                 return 'segundo';
               }
             },
             cellTemplate: '<div style="text-align: center;padding-top: 5px;"><a style="color:#307ecc" href ng-click="grid.appScope.generateReport(row)"><i class="ace-icon fa fa-pencil bigger-130"></i></a></div>' },
-          {field: 'fechaRegistro', enableCellEdit: false, displayName: 'Fecha Registro', width: "10%", type: 'date', cellFilter: 'date:"dd/MM/yyyy"'},
+          {field: 'fechaRegistro', enableCellEdit: false, displayName: 'Fecha Registro', width: "10%",
+              type: 'date', cellFilter: 'date:"dd/MM/yyyy"',
+              sort: {
+                direction: uiGridConstants.DESC,
+                priority: 1
+              }
+             },
           {field: 'vasoNumero', enableCellEdit: false, displayName: 'Vaso', width: "5%"},
           {field: 'planta', enableCellEdit: false, displayName: 'Planta', width: "10%", editableCellTemplate: 'ui-grid/dropdownEditor',
               cellFilter: 'mapPlanta', editDropdownValueLabel: 'planta', editDropdownOptionsArray: $rootScope.plantas},
@@ -94,24 +129,6 @@ pprModController.controller('InformativoEnsayoController', [
          ]
       };
 
-    	for (var i = 0; i < 6; i++) {
-      	$scope.datos[i] = {
-            'id': i,
-            'fechaRegistro': new Date($rootScope.myDateInformativo),
-            'vasoNumero': i + 1,
-            'planta': 1,
-            'color': '',
-            'turbiedad': '',
-            'cuagulante': '',
-            'sustancia': '',
-            'ayudanteCuagulante': '',
-            'tiempoFormacion': '',
-            'indiceWilcomb': '',
-            'tiempoSedimentacion': '',
-            'dosis': '',
-            'observacion': ''
-        }
-    	}
 		  $rootScope.gridTonchalaJarrasInformativo.gridOptions.data = $scope.datos;
 
       $scope.generateReport = function(row) {
@@ -168,6 +185,15 @@ pprModController.controller('InformativoEnsayoController', [
         $rootScope.pesatana.informativo = true;
         $route.reload();
       };
+
+      function parImpar(numero) {
+        if(parseInt(numero) % 2 == 0) {
+          return "par";
+        }
+        else {
+          return "impar";
+        }
+      }
 
       $scope.today = function() {
           $scope.dt = new Date();
