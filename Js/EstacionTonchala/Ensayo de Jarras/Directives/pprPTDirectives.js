@@ -15,12 +15,3 @@ pprModDirective.directive('informativoEnsayo',
       };
   }
 );
-
-pprModDirective.directive('modalFiltar',
-  function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/partes/modal-filtrar.html'
-      };
-  }
-);

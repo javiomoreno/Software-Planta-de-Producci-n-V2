@@ -20,7 +20,7 @@ pprModController.controller('EliminarEnsayoInformativoController', [
           fecha = new Date( new Date(fecha).getFullYear(), new Date(fecha).getMonth(), new Date(fecha).getDate());
           for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
             var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
-              if (new Date(fecha).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 2) {
+              if (new Date(fecha).getTime() == new Date(fecha2).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 2) {
                 if ($rootScope.registroEnsayoJarras[i].enjacons > idEliminar) {
                   idEliminar = $rootScope.registroEnsayoJarras[i].enjacons;
                 }
@@ -29,7 +29,7 @@ pprModController.controller('EliminarEnsayoInformativoController', [
 
           for (var i = ($rootScope.registroEnsayoJarras.length - 1); i >= 0 ; i--) {
             if ($rootScope.registroEnsayoJarras[i].enjacons === idEliminar && $rootScope.registroEnsayoJarras[i].enjatipo === 2) {
-              $rootScope.registroEnsayoJarras.splice($rootScope.registroEnsayoJarras[i].id,1);
+              $rootScope.registroEnsayoJarras.splice(i,1);
             }
           }
         }

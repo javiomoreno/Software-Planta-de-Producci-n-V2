@@ -15,6 +15,7 @@ var appExpuestas = angular.module('AppExp',
                                   'ui.grid.autoResize',
                                   'ui.grid.pagination',
                                   'ui.grid.exporter',
+                                  'ui.grid.rowEdit',
                                   // MODULES CALENDARIO VIRTUAL
                                   'pprModules',
                                   // MODULES LOCALSTORAGE

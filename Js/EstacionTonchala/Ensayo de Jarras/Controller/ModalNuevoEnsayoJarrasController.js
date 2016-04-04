@@ -5,6 +5,7 @@ pprModController.controller('ModalNuevoEnsayoJarrasController', [
                                                           '$location',
     function ($scope, $rootScope, $uibModalInstance, $location){
 
+      var conseMax = 0;
       var fechaNuevo = new Date();
       $scope.Aceptar = function () {
         if($scope.planta !== undefined){
@@ -19,11 +20,14 @@ pprModController.controller('ModalNuevoEnsayoJarrasController', [
             if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 1) {
               $rootScope.registroEnsayoJarras[i].estado = 2;
             }
+            if ($rootScope.registroEnsayoJarras[i].enjacons > conseMax) {
+              conseMax = $rootScope.registroEnsayoJarras[i].enjacons;
+            }
           }
           for (var i = 0; i < 6; i++) {
             var registro = {
               id: i + n,
-              enjacons: consecutivo,
+              enjacons: conseMax + 1,
               enjatipo: 1,
               estado: 1,
               fechaRegistro: new Date(fechaNuevo),
