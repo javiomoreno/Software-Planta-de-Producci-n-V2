@@ -340,40 +340,60 @@ pprModController.controller('InicioEnsayoController', [
         gridApi.edit.on.afterCellEdit($scope, $scope.saveRowDespues);
 	    };
 
-      $scope.saveRowAntes = function(rowEntity) {
-        var ensayo = [];
-        $scope.registroVacio = false;
-        for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
-          if($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons){
-            if ($rootScope.registroEnsayoJarras[i].dosis === 2) {
-              $scope.registroVacio = false;
-            }
-            else if ($rootScope.registroEnsayoJarras[i].dosis === 3) {
-              $scope.registroVacio = false;
-            }
-            else{
-              $scope.registroVacio = true;
+      $scope.saveRowAntes = function(rowEntity, col) {
+        if (col.field === 'dosis') {
+          $scope.valorRegistro = '';
+          $scope.registroVacio = -1;
+          for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+            if($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons){
+              if ($rootScope.registroEnsayoJarras[i].dosis === 2) {
+                $scope.valorRegistro = 2;
+                $scope.registroVacio = i;
+              }
+              else if ($rootScope.registroEnsayoJarras[i].dosis === 3) {
+                $scope.valorRegistro = 3;
+                $scope.registroVacio = i;
+              }
             }
           }
         }
       }
 
-      $scope.saveRowDespues = function(rowEntity) {
-        for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
-          if($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons){
-            if ($rootScope.registroEnsayoJarras[i].dosis === 2 && rowEntity.dosis === 2) {
-              rowEntity.dosis = "";
-              alert("ya existe una dosis a aplicar en este ensayo de Jarras");
-              break;
+      $scope.saveRowDespues = function(rowEntity, col) {
+        if (col.field === 'dosis') {
+          if ($scope.registroVacio !== -1) {
+            for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+              if($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons){
+                if (i !== $scope.registroVacio && $rootScope.registroEnsayoJarras[i].dosis === $scope.valorRegistro && $scope.valorRegistro === 2) {
+                  rowEntity.dosis = "";
+                  alert("ya existe una dosis a aplicar en este ensayo de Jarras");
+                  break;
+                }
+                else if(i !== $scope.registroVacio && $rootScope.registroEnsayoJarras[i].dosis === $scope.valorRegistro && $scope.valorRegistro === 3){
+                  rowEntity.dosis = "";
+                  alert("ya existe una dosis optima en este ensayo de Jarras");
+                  break;
+                }
+              }
             }
-            if ($rootScope.registroEnsayoJarras[i].dosis === 3 && rowEntity.dosis === 3) {
-              rowEntity.dosis = "";
-              alert("ya existe una dosis optima en este ensayo de Jarras");
-              break;
+          }
+          else {
+            for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+              if($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons){
+                if ($rootScope.registroEnsayoJarras[i].dosis === 2 && rowEntity.dosis === 2) {
+                  rowEntity.dosis = "";
+                  alert("ya existe una dosis a aplicar en este ensayo de Jarras");
+                  break;
+                }
+                if ($rootScope.registroEnsayoJarras[i].dosis === 3 && rowEntity.dosis === 3) {
+                  rowEntity.dosis = "";
+                  alert("ya existe una dosis optima en este ensayo de Jarras");
+                  break;
+                }
+              }
             }
           }
         }
-
         for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
           if ($rootScope.registroEnsayoJarras[i].enjacons === rowEntity.enjacons && new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getTime() === new Date(rowEntity.fechaRegistro).getTime() && $rootScope.registroEnsayoJarras[i].id === rowEntity.id) {
             $rootScope.registroEnsayoJarras[i] = rowEntity;

@@ -22,6 +22,7 @@ CREATE TABLE ppr_ensayojarras (
 // enjanuva = Número de Vaso
 // enjacolo = Color
 // enjaturb = Turbiedad
+// enjacuag = Cuagulante
 // enjaaycu = Ayudante de Cuagulación
 // enjatifo = Tiempo de Formación
 // enjainwi = Indice de Wi
