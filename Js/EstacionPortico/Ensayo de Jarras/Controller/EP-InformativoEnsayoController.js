@@ -1,4 +1,4 @@
-pprModController.controller('InformativoEnsayoController', [
+pprModController.controller('EP-InformativoEnsayoController', [
                                                         '$scope',
                                                         '$rootScope',
                                                         '$location',
@@ -32,7 +32,7 @@ pprModController.controller('InformativoEnsayoController', [
 
       for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
         var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
-        if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo == 2 && $rootScope.registroEnsayoJarras[i].planta === 1) {
+        if (new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo == 2 && ($rootScope.registroEnsayoJarras[i].planta === 2 || $rootScope.registroEnsayoJarras[i].planta === 3 || $rootScope.registroEnsayoJarras[i].planta === 4)) {
           $scope.datos.push($rootScope.registroEnsayoJarras[i]);
           $rootScope.banderaCantidadRegistrosInformativo = true;
           cantidadRegistros ++;
@@ -57,11 +57,11 @@ pprModController.controller('InformativoEnsayoController', [
       $rootScope.fechaInformativo = $rootScope.fechaInformativo+" de "+new Date($rootScope.myDateInformativo).getFullYear();
 
     	$rootScope.registro = {};
-      $rootScope.gridTonchalaJarrasInformativo = {};
+      $rootScope.gridPorticoJarrasInformativo = {};
 
       var ValidarEntero = "<div><form name=\"inputForm\"><input step=\"any\" type=\"NUMBER\" ng-class=\"'colt' + col.uid\" ui-grid-editor ng-model=\"MODEL_COL_FIELD\"  minlength=1 maxlength=10 required></form></div>";
 
-      $rootScope.gridTonchalaJarrasInformativo.gridOptions = {
+      $rootScope.gridPorticoJarrasInformativo.gridOptions = {
         enableColumnMenus: true,
         enableFiltering: false,
         paginationPageSizes: [6, 12, 24, 30, 60],
@@ -107,12 +107,12 @@ pprModController.controller('InformativoEnsayoController', [
              ]
            },
            {field: 'planta', enableHiding: false, enableCellEdit: false, displayName: 'Planta', width: "10%",
-               editableCellTemplate: 'ui-grid/dropdownEditor', cellFilter: 'mapPlanta', editDropdownValueLabel: 'planta',
-               editDropdownOptionsArray: $rootScope.plantasTonchala,
+               editableCellTemplate: 'ui-grid/dropdownEditor', cellFilter: 'mapPlantaPortico', editDropdownValueLabel: 'planta',
+               editDropdownOptionsArray: $rootScope.plantasPortico,
                filter: {
                  term: '',
                  type: uiGridConstants.filter.SELECT,
-                 selectOptions: $rootScope.plantasTonchala2
+                 selectOptions: $rootScope.plantasPortico2
                },
                menuItems:
                [
@@ -285,15 +285,15 @@ pprModController.controller('InformativoEnsayoController', [
          }
       };
 
-		  $rootScope.gridTonchalaJarrasInformativo.gridOptions.data = $scope.datos;
+		  $rootScope.gridPorticoJarrasInformativo.gridOptions.data = $scope.datos;
 
       $scope.generateReport = function(row) {
           $rootScope.registroInformativo = row.entity;
           $scope.openModal('md');
       };
 
-    	$rootScope.gridTonchalaJarrasInformativo.gridOptions.onRegisterApi = function(gridApi){
-	      $scope.gridApiTonchalaInformativo = gridApi;
+    	$rootScope.gridPorticoJarrasInformativo.gridOptions.onRegisterApi = function(gridApi){
+	      $scope.gridApi = gridApi;
         gridApi.edit.on.afterCellEdit($scope, $scope.saveRowDespues);
 	    };
 
@@ -344,8 +344,8 @@ pprModController.controller('InformativoEnsayoController', [
     	$scope.openModal = function (size) {
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalAgregarExamenInformativo.html',
-          controller: 'ModalAgregarExamenInformativoController',
+          templateUrl: 'Js/EstacionPortico/Ensayo de Jarras/Html/vistas/informativo/modalAgregarExamenInformativo.html',
+          controller: 'EP-ModalAgregarExamenInformativoController',
           size: size
         });
     	};
@@ -353,8 +353,8 @@ pprModController.controller('InformativoEnsayoController', [
       $scope.openModalNuevo = function (size){
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalNuevoEnsayoInformativo.html',
-          controller: 'ModalNuevoEnsayoInformativoController',
+          templateUrl: 'Js/EstacionPortico/Ensayo de Jarras/Html/vistas/informativo/modalNuevoEnsayoInformativo.html',
+          controller: 'EP-ModalNuevoEnsayoInformativoController',
           size: size
         });
       };
@@ -362,15 +362,15 @@ pprModController.controller('InformativoEnsayoController', [
       $scope.openModalEliminar = function (size){
         var modalInstance = $uibModal.open({
           animation: $scope.animationsEnabled,
-          templateUrl: 'Js/EstacionTonchala/Ensayo de Jarras/Html/vistas/informativo/modalEliminarEnsayoInformativo.html',
-          controller: 'EliminarEnsayoInformativoController',
+          templateUrl: 'Js/EstacionPortico/Ensayo de Jarras/Html/vistas/informativo/modalEliminarEnsayoInformativo.html',
+          controller: 'EP-EliminarEnsayoInformativoController',
           size: size
         });
       };
 
       $scope.openFiltrar = function(){
-        $rootScope.gridTonchalaJarrasInformativo.gridOptions.enableFiltering = !$rootScope.gridTonchalaJarrasInformativo.gridOptions.enableFiltering;
-        $scope.gridApiTonchalaInformativo.core.notifyDataChange( uiGridConstants.dataChange.ALL );
+        $rootScope.gridPorticoJarrasInformativo.gridOptions.enableFiltering = !$rootScope.gridPorticoJarrasInformativo.gridOptions.enableFiltering;
+        $scope.gridApi.core.notifyDataChange( uiGridConstants.dataChange.COLUMN );
       };
 
       $scope.buscarFecha = function(){
@@ -397,9 +397,9 @@ pprModController.controller('InformativoEnsayoController', [
       }
 
       function getPlantas(input){
-        for (var i = 0; i < $rootScope.plantasTonchala.length; i++) {
-          if ($rootScope.plantasTonchala[i].id === input) {
-            return $rootScope.plantasTonchala[i].planta;
+        for (var i = 0; i < $rootScope.plantasPortico.length; i++) {
+          if ($rootScope.plantasPortico[i].id === input) {
+            return $rootScope.plantasPortico[i].planta;
           }
         }
       }
@@ -518,9 +518,11 @@ pprModController.controller('InformativoEnsayoController', [
   };
 })
 
-.filter('mapPlanta', function() {
+.filter('mapPlantaPortico', function() {
   var genderHash = {
-    1: 'P1'
+    2: 'P1',
+    3: 'P2',
+    4: 'P1/P2'
   };
   return function(input) {
     if (!input){

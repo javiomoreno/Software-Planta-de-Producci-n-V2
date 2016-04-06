@@ -1,4 +1,4 @@
-pprModController.controller('InicioController', [
+pprModController.controller('EP-InicioPorticoController', [
                                               '$scope',
                                               '$rootScope',
     function ($scope, $rootScope) {

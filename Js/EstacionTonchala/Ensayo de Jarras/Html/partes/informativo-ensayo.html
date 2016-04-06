@@ -1,0 +1,62 @@
+<div class="row" style="margin-right: auto;" ng-controller="InformativoEnsayoController as vm">
+    <div class="col-lg-12">
+        <p>
+            <button class="btn btn-sm btn-white btn-success btn-bold" ng-click="openModalNuevo('sm')">
+                <i class="ace-icon fa fa-plus-square bigger-120 success"></i>
+                Nuevo
+            </button>
+
+            <button class="btn btn-sm btn-white btn-warning btn-bold" ng-click="openModalEliminar('sm')">
+                <i class="ace-icon fa fa-trash-o bigger-120 orange"></i>
+                Eliminar
+            </button>
+        </p>
+        <h3 class="row header blue lighter smaller">
+          <span class="col-sm-12">
+            <a class="blue" style="float:left; padding-right: 5px;" href ng-click="open()">
+              <i class="ace-icon ace-icon fa fa-calendar bigger-100"></i>
+            </a>
+            <input type="text" uib-datepicker-popup="dd/MM/yyyy" ng-model="a.fechaVistaInformativo" is-open="status.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" style="display: none;" ng-change="buscarFecha()"/>
+              {{fechaInformativo}}
+            <span ng-if="banderaCantidadRegistrosInformativo == true">
+              <div class="pull-right tableTools-container">
+                  <div class="dt-buttons btn-overlap btn-group">
+                      <a class="dt-button buttons-excel buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarCSV()">
+                          <span>
+                              <i class="fa fa-file-excel-o bigger-110 green"></i>
+                              <span class="hidden">Exportar a Excel</span>
+                          </span>
+                      </a>
+                      <a class="dt-button buttons-pdf buttons-flash btn btn-white btn-primary btn-bold" tabindex="0" aria-controls="dynamic-table" ng-click="exportarPDF()">
+                          <span>
+                              <i class="fa fa-file-pdf-o bigger-110 red"></i>
+                              <span class="hidden">Exportar a PDF</span>
+                          </span>
+                      </a>
+                  </div>
+              </div>
+            </span>
+          </span>
+        </h3>
+        <span ng-if="banderaCantidadRegistrosInformativo == true">
+          <div class="row">
+              <div class="col-xs-12">
+                  <div class="table-header">
+                      Carga de Datos
+                  </div>
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <div id="tabla" class="gridStyle" ui-grid="gridTonchalaJarrasInformativo.gridOptions" ui-grid-edit ui-grid-auto-resize ui-grid-pagination ui-grid-exporter style="height: {{tamanoTablaInformativo}}px">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        </span>
+        <span ng-if="banderaCantidadRegistrosInformativo == false">
+          <row>
+            <div class="col-lg-12 blue" style="text-align: center;"><h3>No hay registros para esta Fecha</h3></div>
+          </row>
+        </span>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-pprModController.controller('ModalAgregarExamenInformativoController', [
+pprModController.controller('EP-ModalAgregarExamenInformativoController', [
                                                           '$scope',
                                                           '$rootScope',
                                                           '$uibModalInstance',
@@ -56,22 +56,22 @@ pprModController.controller('ModalAgregarExamenInformativoController', [
                 $rootScope.registroEnsayoJarras[i] = $scope.datosRegisto;
               }
             }
-            for (var i = 0; i < $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length; i++) {
-              if ($rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].id === $scope.datosRegisto.id) {
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].color = $scope.datosRegisto.color;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].turbiedad = $scope.datosRegisto.turbiedad;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].cuagulante = $scope.datosRegisto.cuagulante;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].sustancia = $scope.datosRegisto.sustancia;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].ayudanteCuagulante = $scope.datosRegisto.ayudanteCuagulante;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].tiempoFormacion = $scope.datosRegisto.tiempoFormacion;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].indiceWilcomb = $scope.datosRegisto.indiceWilcomb;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].tiempoSedimentacion = $scope.datosRegisto.tiempoSedimentacion;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].dosis = $scope.datosRegisto.dosis;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].observacion = $scope.datosRegisto.observacion;
+            for (var i = 0; i < $rootScope.gridPorticoJarrasInformativo.gridOptions.data.length; i++) {
+              if ($rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].id === $scope.datosRegisto.id) {
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].color = $scope.datosRegisto.color;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].turbiedad = $scope.datosRegisto.turbiedad;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].cuagulante = $scope.datosRegisto.cuagulante;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].sustancia = $scope.datosRegisto.sustancia;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].ayudanteCuagulante = $scope.datosRegisto.ayudanteCuagulante;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].tiempoFormacion = $scope.datosRegisto.tiempoFormacion;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].indiceWilcomb = $scope.datosRegisto.indiceWilcomb;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].tiempoSedimentacion = $scope.datosRegisto.tiempoSedimentacion;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].dosis = $scope.datosRegisto.dosis;
+                $rootScope.gridPorticoJarrasInformativo.gridOptions.data[i].observacion = $scope.datosRegisto.observacion;
               }
             }
-            $rootScope.gridApiTonchalaInformativo.core.refresh();
-            $rootScope.gridApiTonchalaInformativo.core.notifyDataChange( uiGridConstants.dataChange.ALL );
+            $rootScope.gridApiPorticoInformativo.core.refresh();
+            $rootScope.gridApiPorticoInformativo.core.notifyDataChange( uiGridConstants.dataChange.ALL );
             $uibModalInstance.close();
           }
         }

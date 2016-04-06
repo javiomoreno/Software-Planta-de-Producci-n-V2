@@ -1,4 +1,4 @@
-pprModController.controller('EliminarEnsayoController', [
+pprModController.controller('EP-EliminarEnsayoController', [
                                                           '$scope',
                                                           '$rootScope',
                                                           '$uibModalInstance',
@@ -8,13 +8,13 @@ pprModController.controller('EliminarEnsayoController', [
       var fecha = new Date();
       var idEliminar = 0;
       $scope.Eliminar = function(){
-        if($rootScope.gridTonchalaJarras.gridOptions.data.length > 0){
-          if($rootScope.gridTonchalaJarras.gridOptions.data.length <= 12){
+        if($rootScope.gridPorticoJarras.gridOptions.data.length > 0){
+          if($rootScope.gridPorticoJarras.gridOptions.data.length <= 12){
             $rootScope.tamanoTabla = parseInt($rootScope.tamanoTabla) - 190;
           }
-          var n = $rootScope.gridTonchalaJarras.gridOptions.data.length;
-          $rootScope.gridTonchalaJarras.gridOptions.data.splice(n-6,n);
-          if ($rootScope.gridTonchalaJarras.gridOptions.data.length === 0) {
+          var n = $rootScope.gridPorticoJarras.gridOptions.data.length;
+          $rootScope.gridPorticoJarras.gridOptions.data.splice(n-6,n);
+          if ($rootScope.gridPorticoJarras.gridOptions.data.length === 0) {
             $rootScope.banderaCantidadRegistros = false;
           }
           fecha = new Date( new Date(fecha).getFullYear(), new Date(fecha).getMonth(), new Date(fecha).getDate());

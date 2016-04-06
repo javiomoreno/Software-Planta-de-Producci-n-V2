@@ -1,4 +1,4 @@
-pprModController.controller('ModalAgregarExamenInformativoController', [
+pprModController.controller('EP-ModalAgregarExamenJarrasController', [
                                                           '$scope',
                                                           '$rootScope',
                                                           '$uibModalInstance',
@@ -20,6 +20,65 @@ pprModController.controller('ModalAgregarExamenInformativoController', [
 
           return temp;
       }
+
+      var fecha = new Date();
+      var fecha = new Date( new Date(fecha).getFullYear(), new Date(fecha).getMonth(), new Date(fecha).getDate());
+
+      if ($rootScope.registro.estado === 1) {
+        $scope.checkboxModel = {
+				   value : true
+			 	};
+			}
+			else{
+				$scope.checkboxModel = {
+				   value : false
+			 	};
+      }
+
+      $scope.cambiarEstado = function() {
+        if($rootScope.registro.estado === 1){
+          for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+            var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
+            if(new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 1){
+              if ($rootScope.registroEnsayoJarras[i].enjacons === $rootScope.registro.enjacons) {
+                $rootScope.registroEnsayoJarras[i].estado = 2;
+              }
+              else {
+                $rootScope.registroEnsayoJarras[i].estado = 1;
+              }
+            }
+          }
+          for (var i = 0; i < $rootScope.gridPorticoJarras.gridOptions.data.length; i++) {
+            if ( $rootScope.gridPorticoJarras.gridOptions.data[i].enjacons === $rootScope.registro.enjacons) {
+              $rootScope.gridPorticoJarras.gridOptions.data[i].estado = 2;
+            }
+            else {
+              $rootScope.gridPorticoJarras.gridOptions.data[i].estado = 1;
+            }
+          }
+        }
+        else{
+          for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
+            var fecha2 = new Date( new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getFullYear(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getMonth(), new Date($rootScope.registroEnsayoJarras[i].fechaRegistro).getDate());
+            if(new Date(fecha2).getTime() == new Date(fecha).getTime() && $rootScope.registroEnsayoJarras[i].enjatipo === 1){
+              if ($rootScope.registroEnsayoJarras[i].enjacons === $rootScope.registro.enjacons) {
+                $rootScope.registroEnsayoJarras[i].estado = 1;
+              }
+              else {
+                $rootScope.registroEnsayoJarras[i].estado = 2;
+              }
+            }
+          }
+          for (var i = 0; i < $rootScope.gridPorticoJarras.gridOptions.data.length; i++) {
+            if ( $rootScope.gridPorticoJarras.gridOptions.data[i].enjacons === $rootScope.registro.enjacons) {
+               $rootScope.gridPorticoJarras.gridOptions.data[i].estado = 1;
+            }
+            else {
+              $rootScope.gridPorticoJarras.gridOptions.data[i].estado = 2;
+            }
+          }
+        }
+    	}
 
       $scope.Guardar = function () {
         var banderaGuardo = true;
@@ -56,25 +115,29 @@ pprModController.controller('ModalAgregarExamenInformativoController', [
                 $rootScope.registroEnsayoJarras[i] = $scope.datosRegisto;
               }
             }
-            for (var i = 0; i < $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length; i++) {
-              if ($rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].id === $scope.datosRegisto.id) {
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].color = $scope.datosRegisto.color;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].turbiedad = $scope.datosRegisto.turbiedad;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].cuagulante = $scope.datosRegisto.cuagulante;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].sustancia = $scope.datosRegisto.sustancia;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].ayudanteCuagulante = $scope.datosRegisto.ayudanteCuagulante;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].tiempoFormacion = $scope.datosRegisto.tiempoFormacion;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].indiceWilcomb = $scope.datosRegisto.indiceWilcomb;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].tiempoSedimentacion = $scope.datosRegisto.tiempoSedimentacion;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].dosis = $scope.datosRegisto.dosis;
-                $rootScope.gridTonchalaJarrasInformativo.gridOptions.data[i].observacion = $scope.datosRegisto.observacion;
+            for (var i = 0; i < $rootScope.gridPorticoJarras.gridOptions.data.length; i++) {
+              if ($rootScope.gridPorticoJarras.gridOptions.data[i].id === $scope.datosRegisto.id) {
+                $rootScope.gridPorticoJarras.gridOptions.data[i].color = $scope.datosRegisto.color;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].turbiedad = $scope.datosRegisto.turbiedad;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].cuagulante = $scope.datosRegisto.cuagulante;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].sustancia = $scope.datosRegisto.sustancia;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].ayudanteCuagulante = $scope.datosRegisto.ayudanteCuagulante;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].tiempoFormacion = $scope.datosRegisto.tiempoFormacion;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].indiceWilcomb = $scope.datosRegisto.indiceWilcomb;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].tiempoSedimentacion = $scope.datosRegisto.tiempoSedimentacion;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].dosis = $scope.datosRegisto.dosis;
+                $rootScope.gridPorticoJarras.gridOptions.data[i].observacion = $scope.datosRegisto.observacion;
               }
             }
-            $rootScope.gridApiTonchalaInformativo.core.refresh();
-            $rootScope.gridApiTonchalaInformativo.core.notifyDataChange( uiGridConstants.dataChange.ALL );
+            $rootScope.gridApiPortico.core.refresh();
+            $rootScope.gridApiPortico.core.notifyDataChange( uiGridConstants.dataChange.ALL );
             $uibModalInstance.close();
           }
         }
+        else {
+          console.log("chao");
+        }
+
       };
 
       $scope.Cancelar = function () {

@@ -1,4 +1,4 @@
-pprModController.controller('ModalNuevoEnsayoInformativoController', [
+pprModController.controller('EP-ModalNuevoEnsayoInformativoController', [
                                                           '$scope',
                                                           '$rootScope',
                                                           '$uibModalInstance',
@@ -9,13 +9,13 @@ pprModController.controller('ModalNuevoEnsayoInformativoController', [
       var conseMax = 0;
       $scope.Aceptar = function () {
         if($scope.planta !== undefined){
-          if($rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length >= 6 && $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length < 12){
+          if($rootScope.gridPorticoJarrasInformativo.gridOptions.data.length >= 6 && $rootScope.gridPorticoJarrasInformativo.gridOptions.data.length < 12){
             $rootScope.tamanoTablaInformativo = parseInt($rootScope.tamanoTablaInformativo) + 190;
           }
-          else if ($rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length === 0) {
+          else if ($rootScope.gridPorticoJarrasInformativo.gridOptions.data.length === 0) {
             $rootScope.tamanoTablaInformativo = "260";
           }
-          var n = $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.length;
+          var n = $rootScope.gridPorticoJarrasInformativo.gridOptions.data.length;
           var consecutivo = n / 6;
           for (var i = 0; i < $rootScope.registroEnsayoJarras.length; i++) {
             if ($rootScope.registroEnsayoJarras[i].enjacons > conseMax) {
@@ -43,7 +43,7 @@ pprModController.controller('ModalNuevoEnsayoInformativoController', [
               dosis: '',
               observacion: ''
             };
-            $rootScope.gridTonchalaJarrasInformativo.gridOptions.data.push(registro);
+            $rootScope.gridPorticoJarrasInformativo.gridOptions.data.push(registro);
             $rootScope.registroEnsayoJarras.push(registro);
             $rootScope.banderaCantidadRegistrosInformativo = true;
           }
